@@ -32,18 +32,15 @@ public class ShoeSize {
         // add code here that will load shoe size from a file called "FILENAME"
         ShoeSize ss = new ShoeSize();
         try{
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("serializable.txt"));
-            if (ois != null){
-                int shoesize = (Integer) ois.readObject();
+            BufferedReader b_reader = new BufferedReader(new FileReader("bespoke.txt"));
+            String line = b_reader.readLine();
+            if (line != null){
+                System.out.println(11111);
+                int shoesize = Integer.parseInt(line);
                 ss.shoesize = shoesize;
-                ois.close();
             }
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-        }catch (IOException e){
-            e.printStackTrace();
-        }catch(ClassNotFoundException e){
-            e.printStackTrace();
+        }catch (IOException x){
+            System.err.format("IOException: %s%n", x);
         }
         return ss;
     }
@@ -51,13 +48,13 @@ public class ShoeSize {
     void save() {
         // add code here that will save shoe size into a file called "FILENAME"
         try{
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("serializable.txt"));
-            if (shoesize != null){
-                oos.writeObject(shoesize);
+            BufferedWriter b_writer = new BufferedWriter(new FileWriter("bespoke.txt"));
+            if(shoesize != null){
+                b_writer.write(shoesize.toString());
             }
-            oos.close();
-        }catch(IOException e){
-            e.printStackTrace();
+            b_writer.close();
+        }catch (IOException x){
+            System.err.format("IOException: %s%n", x);
         }
     }
 }
